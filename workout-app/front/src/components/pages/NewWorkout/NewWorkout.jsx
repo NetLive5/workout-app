@@ -8,7 +8,7 @@ import bgImage from '../../../images/new-workout-bg.jpg'
 import Feild from '../../ui/Feild/Feild'
 import Button from '../../ui/Button/Button'
 
-import styles from '../NewWorkout/NewWorkout.module.scss'
+
 
 
 
@@ -23,7 +23,7 @@ const NewWorkout = () => {
   return (
   <>
     <Layout bgImage={bgImage} heading ='Create new workout' />
-      <div className={styles.wrapper}>
+      <div className='wrapper-in-page'>
         <form onSubmit={handleSubmit}>
           <Feild 
             placeholder='Enter name' 

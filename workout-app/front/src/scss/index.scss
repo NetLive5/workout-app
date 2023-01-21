@@ -83,6 +83,7 @@ img {
 .select2-selection{
 	&__control{
 		cursor: pointer !important;
+		text-align: left !important;
 		margin-bottom: 2rem;
 		border-radius: 10px !important;
 		min-height: 48px !important;
@@ -159,3 +160,10 @@ img {
 		color: darken($accent, 10%);
 	}
 }
+.wrapper-in-page{
+	padding: 50px 40px;
+	text-align: center;
+	max-width: 560px;
+	width: 100%;
+	margin: 0 auto;
+   }
