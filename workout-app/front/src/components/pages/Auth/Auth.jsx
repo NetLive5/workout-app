@@ -9,6 +9,10 @@ import Button from '../../ui/Button/Button'
 import styles from './Auth.module.scss'
 import Alert from '../../ui/Alert/Alert'
 
+import { useMutation } from 'react-query'
+import { $api } from '../../../api/api'
+import Loader from '../../ui/Loader'
+
 
 
 
@@ -16,6 +20,25 @@ const Auth = () => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [type, setType] = React.useState('') //auth || reg
+
+  const {
+    mutate: register,
+    isLoading,
+    error,
+   
+  } = useMutation('Registration', () => 
+  $api({
+    url:'/users', 
+    type:'POST', 
+    body:{email, password}, 
+    auth: false
+  }), {
+    onSuccess(data){
+      localStorage.setItem('token', data.token)
+    },
+  }
+  
+)
 
   const handleSubmit = e =>{
     e.preventDefault()
@@ -25,7 +48,7 @@ const Auth = () => {
     }
     
     else{
-      console.log('Reg')
+      register()
     }
   }
 
@@ -35,7 +58,8 @@ const Auth = () => {
   <>
     <Layout bgImage={bgImage} heading ='Auth || Register' />
       <div className='wrapper-in-page'>
-      {true && <Alert type='error' text='Yoy have reg'/>}
+      {error && <Alert type='error' text={error}/>}
+      {isLoading && <Loader/>}
         <form onSubmit={handleSubmit}>
           <Feild 
             type='email'
