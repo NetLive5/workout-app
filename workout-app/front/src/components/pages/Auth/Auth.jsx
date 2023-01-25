@@ -1,17 +1,19 @@
 import React from 'react'
-
-import Layout from '../../common/Layout'
-
-import bgImage from '../../../images/auth-bg.png'
-import Feild from '../../ui/Feild/Feild'
-import Button from '../../ui/Button/Button'
-
-import styles from './Auth.module.scss'
-import Alert from '../../ui/Alert/Alert'
+import { useNavigate } from 'react-router-dom'
 
 import { useMutation } from 'react-query'
-import { $api } from '../../../api/api'
+
+import Layout from '../../common/Layout'
+import Feild from '../../ui/Feild/Feild'
+import Button from '../../ui/Button/Button'
+import Alert from '../../ui/Alert/Alert'
 import Loader from '../../ui/Loader'
+
+import styles from './Auth.module.scss'
+import bgImage from '../../../images/auth-bg.png'
+
+import { $api } from '../../../api/api'
+import { useAuth } from '../../ui/hooks/useAuth'
 
 
 
@@ -20,6 +22,9 @@ const Auth = () => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [type, setType] = React.useState('') //auth || reg
+
+  const navigate = useNavigate()
+  const { setIsAuth } = useAuth()
 
   const {
     mutate: register,
@@ -35,6 +40,12 @@ const Auth = () => {
   }), {
     onSuccess(data){
       localStorage.setItem('token', data.token)
+      setIsAuth(true)
+
+      setEmail('')
+      setPassword('')
+
+      navigate('/')
     },
   }
   
